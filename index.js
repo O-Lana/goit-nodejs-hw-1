@@ -1,49 +1,26 @@
-console.clear();
 const contacts = require("./contacts");
-// console.log(__dirname);
+const { program } = require("commander");
 
-// const invokeAction = async ({ action, id, name, email, phone }) => {
-//   switch (action) {
-//     case "list":
-//       const result = await contacts.listContacts();
-//       console.log(result);
-
-//       break;
-
-//     default:
-//       break;
-//   }
-// };
-
-// invokeAction({ action: "list" });
-
-// index.js
-// const argv = require("yargs").argv;
-
-// TODO: рефакторить
 async function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case "list":
-      const result = await contacts.listContacts();
-      console.log(result);
-
+      const contactsList = await contacts.listContacts();
+      console.table(contactsList);
       break;
 
     case "get":
-      const contact = await contacts.getContactById(id);
-      console.log(contact);
+      const contactById = await contacts.getContactById(id);
+      console.table(contactById);
       break;
 
     case "add":
-      // ... name email phone
       const newContact = await contacts.addContact(name, email, phone);
-      console.log(newContact);
+      console.table(newContact);
       break;
 
     case "remove":
       const removeContact = await contacts.removeContact(id);
-      console.log(removeContact);
-      // ... id
+      console.table(removeContact);
       break;
 
     default:
@@ -51,12 +28,15 @@ async function invokeAction({ action, id, name, email, phone }) {
   }
 }
 
-// invokeAction(argv);
-// invokeAction({ action: "list" });
-// invokeAction({ action: "get", id: "1" });
-invokeAction({
-  action: "add",
-  name: "Lana",
-  email: "lana@mail.com",
-  phone: "3-53-50",
-});
+program
+  .option("-a, --action <type>", "choose action")
+  .option("-i, --id <type>", "user id")
+  .option("-n, --name <type>", "user name")
+  .option("-e, --email <type>", "user email")
+  .option("-p, --phone <type>", "user phone");
+
+program.parse(process.argv);
+
+const argv = program.opts();
+
+invokeAction(argv);
