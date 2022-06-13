@@ -1,17 +1,17 @@
-\*\*goit-nodejs-hw-1
+# goit-nodejs-hw-1
 
-# Получаем список контактов
+## Получаем список контактов
 
 ![action list](./images/ContactsList.png)
 
-# Получаем один контакт по id
+## Получаем один контакт по id
 
 ![get contact by id](./images/getContactById.png)
 
-# Добавляем контакт
+## Добавляем контакт
 
 ![add contact](./images/addContact.png)
 
-# Удаляем контакт
+## Удаляем контакт
 
 ![remove contact](./images//removeContact.png)
